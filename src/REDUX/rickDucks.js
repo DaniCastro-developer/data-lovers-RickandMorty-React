@@ -95,6 +95,7 @@ export const previousPageDataAccion = () => async (dispatch, getState) => {
             type: PREVIOUS_DATA_SUCESS,
             payload: res.data
         })
+        localStorage.setItem(prev, JSON.stringify(res.data))
     } catch (error) {
         console.log(error)
     }
