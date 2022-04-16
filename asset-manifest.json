@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/DaniCastro-developer/data-lovers-RickandMorty-React/static/css/main.ac8cf520.css",
+    "main.js": "/DaniCastro-developer/data-lovers-RickandMorty-React/static/js/main.bd108827.js",
+    "index.html": "/DaniCastro-developer/data-lovers-RickandMorty-React/index.html",
+    "main.ac8cf520.css.map": "/DaniCastro-developer/data-lovers-RickandMorty-React/static/css/main.ac8cf520.css.map",
+    "main.bd108827.js.map": "/DaniCastro-developer/data-lovers-RickandMorty-React/static/js/main.bd108827.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ac8cf520.css",
+    "static/js/main.bd108827.js"
+  ]
+}
