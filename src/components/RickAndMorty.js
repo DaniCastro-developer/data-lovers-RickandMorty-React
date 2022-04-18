@@ -6,8 +6,13 @@ import {
   getDataAccion,
   nextPageDataAccion,
   previousPageDataAccion,
+  DetailsCharacter
 } from "../REDUX/rickDucks";
 import "../styles/cardFlip.css";
+
+import Details from './Details.jsx'
+import NavBar from "./NavBar";
+
 const RickAndMorty = () => {
   const dispatch = useDispatch();
 
@@ -20,6 +25,8 @@ const RickAndMorty = () => {
   return (
     <div>
       <h1 className="text-center">Rick and Morty list</h1>
+      <NavBar/>
+
 
       {readData.length === 0 && (
         <button
@@ -40,21 +47,27 @@ const RickAndMorty = () => {
         
           <div key={id} className="col">
            
-            <div className="flip-card">
+            <div className="flip-card" onClick={() => dispatch(DetailsCharacter(item.id))}>
+          
+                        
               <div className="flip-card-inner">
+              
+                       
                 <div className="flip-card-front">
                   <img src={item.image} class="card-img-top" alt={item.name} />
-                  <h3 className="card-title">{item.name}</h3>
+                  <h5 className="card-title">{item.name}</h5>
                 </div>
                 <div className="flip-card-back text-center">
-                  <h3 className="card-title">{item.name}</h3>
-                  <p className="card-text">{item.location.name}</p>
+                  
+                  <h5 className="card-title mt-2">{item.name}</h5>
+                  <img src={item.image} class="card-img-back" alt={item.name} />
                   <p className="card-text">{item.status}</p>
                   <p className="card-text">{item.gender}</p>
-                  <p className="card-text">{item.species}</p>
-                  <p className="card-text">{item.origin.name}</p>
+                 
                 </div>
+               
               </div>
+          
             </div>
             
           </div>
@@ -83,7 +96,11 @@ const RickAndMorty = () => {
             Siguiente{" "}
           </button>
         )}
+
+         <Details/>
+        
       </div>
+     
     </div>
   );
 };

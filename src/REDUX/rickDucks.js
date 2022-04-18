@@ -11,6 +11,7 @@ const dataInitial = {
 const GET_DATA_SUCESS = 'GET_DATA_SUCESS'
 const NEXT_DATA_SUCESS = 'NEXT_DATA_SUCESS'
 const PREVIOUS_DATA_SUCESS = 'PREVIOUS_DATA_SUCESS'
+const DETAILS_CHARACTER_SUCESS = 'DETAILS_CHARACTER_SUCESS'
 
 //reducer
 export default function RickReducer (state = dataInitial, action) {
@@ -21,13 +22,67 @@ export default function RickReducer (state = dataInitial, action) {
            return {...state, ...action.payload}
         case PREVIOUS_DATA_SUCESS:
             return {...state, ...action.payload}
+        case DETAILS_CHARACTER_SUCESS:
+            return {...state, details: action.payload}
         default:
             return state
     }
 }
 
 //accions
-export const getDataAccion = () => async (dispatch, getState) => {
+export const DetailsCharacter = (url = 1) => async (dispatch) => {
+
+    if(localStorage.getItem(url)) {
+        dispatch({
+            type: DETAILS_CHARACTER_SUCESS,
+            payload: JSON.parse(localStorage.getItem(url))
+        })
+        //console.log('storage')
+        return
+    }
+ try {
+     const res = await axios.get(`https://rickandmortyapi.com/api/character/${url}`)
+
+
+     //console.log(res.data)
+     dispatch({
+        type: DETAILS_CHARACTER_SUCESS,
+        payload: {
+            Name: res.data.name,
+            Origin: res.data.origin.name,
+            Specie: res.data.species,
+            Image: res.data.image,
+            Status: res.data.status,
+            Gender: res.data.gender, 
+            /* Episode: res.data. */
+            Location:res.data.location.name,
+            Episode: {
+                episodes: res.data.episode
+            }
+        }
+     })
+     //console.log('API')
+     localStorage.setItem(url, JSON.stringify({
+        Name: res.data.name,
+        Origin: res.data.origin.name,
+        Specie: res.data.species,
+        Image: res.data.image,
+        Status: res.data.status,
+        Gender: res.data.gender, 
+        /* Episode: res.data. */
+        Location:res.data.location.name,
+        Episode: {
+            episodes: res.data.episode
+        }
+    }))
+     
+ } catch (error) {
+     console.log(error)
+ }
+ 
+}
+
+export const getDataAccion = () => async (dispatch) => {
    // console.log('getState', getState().rickAndMorty.offset)
    
    if(localStorage.getItem('arrayData')){
@@ -59,7 +114,7 @@ export const nextPageDataAccion = () => async (dispatch, getState) => {
     //console.log(next)
 
     if(localStorage.getItem(next)){
-        console.log('exist')
+        //console.log('exist')
         dispatch({
             type: NEXT_DATA_SUCESS,
             payload: JSON.parse(localStorage.getItem(next))
